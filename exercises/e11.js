@@ -28,10 +28,7 @@ export const usersUrl = "http://localhost:3000/users/";
 
 const getLoginList = (data) => {
   // Your code goes here...
-  let logins = [];
-  data.forEach((user) => logins.push(user.login));
-  console.log(logins);
-  return logins;
+  return data.map((user) => user.login);
 };
 
 /**
@@ -58,8 +55,11 @@ const getData = fetch(usersUrl);
 // Your code goes here ...
 export const result = getData
   .then((res) => res.json())
-  .then((data) => getLoginList(data))
-  .then((data) => data);
+  .then((data) => {
+    const logins = getLoginList(data);
+    console.log(logins);
+    return logins;
+  });
 
 // === TEST YOURSELF ===
 // Once you're finished run the test with "npm run test-11"

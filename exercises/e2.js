@@ -36,9 +36,10 @@ export const getPromise = (boolean) => {
 
 export const handlePromise = (promise) => {
   // Your code goes here...
-  const ifFullfilled = (data) => data;
-  const ifRejected = () => "Uh Oh";
-  return promise.then(ifFullfilled, ifRejected);
+  return promise.then(
+    (data) => data,
+    () => "Uh Oh"
+  );
 };
 
 // === TEST YOURSELF ===

@@ -36,13 +36,8 @@ export function alwaysThrows() {
  * The function must be exported
  */
 
-export function onReject(err) {
-  // Your code goes here...
-  if (typeof err === "object") {
-    console.log(err.message);
-  } else {
-    console.log(err);
-  }
+export function onReject(reason) {
+  return reason.message ? console.log(reason.message) : console.log(reason);
 }
 
 /**
@@ -67,17 +62,17 @@ export function onReject(err) {
  */
 
 // Your code goes here...
-export const promise = Promise.resolve(iterate)
-  .then((res) => iterate(res))
-  .then((res) => iterate(res))
-  .then((res) => iterate(res))
-  .then((res) => iterate(res))
-  .then(() => alwaysThrows())
-  .then((res) => iterate(res))
-  .then((res) => iterate(res))
-  .then((res) => iterate(res))
-  .then((res) => iterate(res))
-  .catch((err) => onReject(err));
+export const promise = Promise.resolve(iterate(1))
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(alwaysThrows)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .then(iterate)
+  .catch(onReject);
 
 // === TEST YOURSELF ===
 // Once you're finished run the test with "npm run test-9"
